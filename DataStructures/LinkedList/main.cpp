@@ -17,13 +17,12 @@ int main(void)
 
     list.print();
 
-    std::cout << "\nCheck accessing:\n";
-    std::cout << "[";
-    for (int i=0; i < list.size - 1; i++)
+    std::cout << "\nPrint list using [] operator (accesing elements):\n";
+    for (int i=0; i < list.size; i++)
     {
-        std::cout << list[i] << ", ";  
+        std::cout << list[i] << " -> ";  
     }
-    std::cout << list[list.size - 1] << "]\n";
+    std::cout << "//\n";
 
 
     std::cout << "\nInsert 0 at the beginning:\n";
@@ -37,11 +36,15 @@ int main(void)
     list.print();
 
     std::cout << "\nChange element on the 5th index to 6:\n";
-    list.modify(5, 5);
+    list.modify(6, 5);
     list.print();
 
-    std::cout << "\nRemove element on the 2nd index\n";
-    list.remove(2);
+    std::cout << "\nChange element on the 5th index to 3 (using [] operator):\n";
+    list[5] = 3;
+    list.print();
+
+    std::cout << "\nRemove element on the 5th index:\n";
+    list.remove(5);
     list.print();
     return 0;
 }

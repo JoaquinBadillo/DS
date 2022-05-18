@@ -11,20 +11,24 @@ class List
         List();
 
         // Access linked list: O(n)
-        int access(int i);
-        int operator[](int i);
+        int& access(int i);
+
+        // Access linked list: O(n)
+        int& operator[](int i);
 
         // Modify linked list item: O(n)
         void modify(int data, int i);
 
-        // Insertion
-        void insert(Node& item); // O(1)
-        void insert(Node& item, int i); // O(n)  
+        // Insert item at the beginning: O(1)
+        void insert(Node& item);
 
-        // Deletion:
+        // Insert item at a given index: O(n)
+        void insert(Node& item, int i); 
+
+        // Deletion: O(n)
         void remove(int i);
 
-        // Print list
+        // Print list: O(n)
         void print();     
 };
 
@@ -34,7 +38,7 @@ List::List()
     first = nullptr;
 }
 
-int List::access(int i)
+int& List::access(int i)
 {
     // Access element at ith index
     Node* temp = first;
@@ -52,7 +56,7 @@ int List::access(int i)
     throw "Error: Index doesn't exist!"; 
 }
 
-int List::operator[](int i)
+int& List::operator[](int i)
 {
     return this -> access(i);
 }
@@ -133,9 +137,16 @@ void List::print()
 {
     Node* temp;
 
-    for(temp = first; temp != nullptr; temp = temp -> link)
+    if(size >0)
     {
-        std::cout << temp -> data << " -> ";
+        for(temp = first; temp != nullptr; temp = temp -> link)
+        {
+            std::cout << temp -> data << " -> ";
+        }
+        std::cout << "//\n";
     }
-    std::cout << "/\n";
+    else
+    {
+        std::cout << "Empty list\n"; 
+    }
 }
