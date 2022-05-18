@@ -1,5 +1,8 @@
 // Integer Linked List Item
 
+#ifndef Node_h
+#define Node_h
+
 class Node
 {
     public:
@@ -20,3 +23,5 @@ Node::Node(int data_)
     data = data_;
     link = nullptr;
 }
+
+#endif

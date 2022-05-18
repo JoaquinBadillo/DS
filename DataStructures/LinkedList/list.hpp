@@ -13,28 +13,20 @@ class List
 
         // Access linked list: O(n)
         int& access(int i);
-
         // Access linked list: O(n)
         int& operator[](int i);
-
         // Modify linked list item: O(n)
         void modify(int data, int i);
-
         // Insert item at the beginning: O(1)
         void insert(Node& item);
-
         // Create node and insert item at the beginning: O(1)
         void insert(int data);
-
         // Insert item at a given index: O(n)
         void insert(Node& item, int i); 
-
         // Create node and insert item at a given index: O(n)
         void insert(int data, int i); 
-
         // Delete item at ith position: O(n)
         void remove(int i);
-
         // Print list: O(n)
         void print();     
 };
