@@ -9,6 +9,7 @@ class List
         int size;
 
         List();
+        ~List();
 
         // Access linked list: O(n)
         int& access(int i);
@@ -42,6 +43,18 @@ List::List()
 {
     size = 0;
     first = nullptr;
+}
+
+List::~List()
+{
+    Node* currentItem = first;
+    Node* nextItem;
+    while(currentItem != nullptr)
+    {
+        nextItem = currentItem -> link;
+        delete currentItem;
+        currentItem = nextItem;
+    }
 }
 
 int& List::access(int i)
