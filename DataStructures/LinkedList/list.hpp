@@ -22,10 +22,16 @@ class List
         // Insert item at the beginning: O(1)
         void insert(Node& item);
 
+        // Create node and insert item at the beginning: O(1)
+        void insert(int data);
+
         // Insert item at a given index: O(n)
         void insert(Node& item, int i); 
 
-        // Deletion: O(n)
+        // Create node and insert item at a given index: O(n)
+        void insert(int data, int i); 
+
+        // Delete item at ith position: O(n)
         void remove(int i);
 
         // Print list: O(n)
@@ -40,7 +46,6 @@ List::List()
 
 int& List::access(int i)
 {
-    // Access element at ith index
     Node* temp = first;
 
     if (i < size)
@@ -63,8 +68,6 @@ int& List::operator[](int i)
 
 void List::modify(int data, int i)
 {
-    // Modify element at ith index
-
     Node* temp = first;
 
     if (i >= size)
@@ -82,17 +85,19 @@ void List::modify(int data, int i)
 
 void List::insert(Node& item)
 {
-    // Insert at the beginning
-
     item.link = first;
     first = &item;
     size++;
 }
 
+void List::insert(int data)
+{
+    Node* nodeptr = new Node(data);
+    this -> insert(*nodeptr);
+}
+
 void List::insert(Node& item, int i)
 {
-    // Insert at the ith position
-
     Node* temp = first;
     
     if (i >= size)
@@ -110,10 +115,14 @@ void List::insert(Node& item, int i)
     size++;
 }
 
+void List::insert(int data, int i)
+{
+    Node* nodeptr = new Node(data);
+    this -> insert(*nodeptr, i);
+}
+
 void List::remove(int i)
 {
-    // Remove item at index i
-
     Node* temp = first;
     Node* next;
 
