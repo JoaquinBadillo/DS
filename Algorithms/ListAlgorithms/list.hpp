@@ -1,8 +1,4 @@
 // Integer Linked List
-
-#ifndef List_h
-#define List_h
-
 #include <iostream>
 #include "node.hpp"
 
@@ -30,7 +26,9 @@ class List
         // Create node and insert item at a given index: O(n)
         void insert(int data, int i); 
         // Delete item at ith position: O(n)
-        void remove(int i);   
+        void remove(int i);
+        // Print list: O(n)
+        void print();     
 };
 
 List::List()
@@ -107,11 +105,17 @@ void List::insert(Node& item, int i)
 {
     Node* temp = first;
     
-    if (i >= size)
+    if (i > size)
     {
-        throw "Error: Index doesn't exist";
+        throw "Error: Index is out of range";
     }
-
+    
+    else if (i == 0)
+    {
+        this -> insert(item);
+        return;
+    }
+    
     for(int j=0; j<i-1; j++)
     {
         temp = temp -> link;
@@ -140,12 +144,30 @@ void List::remove(int i)
 
     for(int j=0; j<i-1; j++)
     {
-            temp = temp -> link;
+        temp = temp -> link;
     }
 
     next = temp -> link -> link;
     delete temp -> link;
-
     temp -> link = next;
+
+    size--;
 }
-#endif
+
+void List::print()
+{
+    Node* temp;
+
+    if(size >0)
+    {
+        for(temp = first; temp != nullptr; temp = temp -> link)
+        {
+            std::cout << temp -> data << " -> ";
+        }
+        std::cout << "//\n";
+    }
+    else
+    {
+        std::cout << "Empty list\n"; 
+    }
+}

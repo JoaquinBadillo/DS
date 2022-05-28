@@ -105,11 +105,17 @@ void List::insert(Node& item, int i)
 {
     Node* temp = first;
     
-    if (i >= size)
+    if (i > size)
     {
-        throw "Error: Index doesn't exist";
+        throw "Error: Index is out of range";
     }
-
+    
+    else if (i == 0)
+    {
+        this -> insert(item);
+        return;
+    }
+    
     for(int j=0; j<i-1; j++)
     {
         temp = temp -> link;
@@ -138,13 +144,14 @@ void List::remove(int i)
 
     for(int j=0; j<i-1; j++)
     {
-            temp = temp -> link;
+        temp = temp -> link;
     }
 
     next = temp -> link -> link;
     delete temp -> link;
-
     temp -> link = next;
+
+    size--;
 }
 
 void List::print()
