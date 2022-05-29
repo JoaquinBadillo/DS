@@ -3,11 +3,33 @@
 // Doubly Integer Linked List
 
 #include <iostream>
-
+#include <string>
+#include <vector>
 #include "node.hpp"
+
+class ListException : public std::exception {
+    private:
+    std::string message;
+
+    public:
+    ListException(std::string msg)
+    {
+        message = msg;
+    }
+
+    const char * what ()
+    {
+        return message.c_str();
+    }
+};
 
 class List
 {
+    private:
+        // Insert item at the beginning: O(1)
+        void insert(Node& item);
+        // Insert item at a given index: O(n)
+        void insert(Node& item, int i); 
     public:
         Node* head;
         int size;
@@ -21,12 +43,8 @@ class List
         int& operator[](int i);
         // Modify linked list item: O(n)
         void modify(int data, int i);
-        // Insert item at the beginning: O(1)
-        void insert(Node& item);
         // Create node and insert item at the beginning: O(1)
         void insert(int data);
-        // Insert item at a given index: O(n)
-        void insert(Node& item, int i); 
         // Create node and insert item at a given index: O(n)
         void insert(int data, int i); 
         // Delete item at ith position: O(n)
@@ -45,12 +63,13 @@ List::~List()
 {
     Node* current = head;
     Node* next;
+
     while (current != nullptr)
     {
         next = current -> next;
         delete current;
         current = next;
-    }  
+    }
 }
 
 int& List::access(int i)
@@ -66,7 +85,7 @@ int& List::access(int i)
         return item -> data;
     }
 
-    throw "Index doesn't exist!";
+    throw ListException("Error: Index doesn't exist!");
 }
 
 int& List::operator[](int i)
@@ -80,7 +99,7 @@ void List::modify(int data, int i)
 
     if (i >= size)
     {
-        throw "Index doesn't exist!";
+        throw ListException("Error: Index doesn't exist!");
     }
 
     for(int j = 0; j < i; j++)
@@ -114,7 +133,8 @@ void List::insert(Node& item, int i)
 
     if (i > size)
     {
-        throw "Error: Index doesn't exist!";
+        delete &item;
+        throw ListException("Error: Index doesn't exist!");
     }
 
     else if (i == 0)
@@ -123,13 +143,13 @@ void List::insert(Node& item, int i)
         return;
     }
 
-    for (int j = 0; j < i; j++)
+    for (int j = 0; j < i-1; j++)
     {
         current = current -> next;
     }
 
-    item.prev = current -> prev;
-    item.next = current;
+    item.prev = current;
+    item.next = current -> next;
     item.prev -> next = &item;
     current -> prev = &item;
     size++;
@@ -145,9 +165,9 @@ void List::remove(int i)
 {
     Node* current = head;
 
-    if (i > size)
+    if (i >= size)
     {
-        throw "Error: Index doesn't exist!";
+        throw ListException("Error: Index doesn't exist!");
     }
 
     for (int j = 0; j < i; j++)
