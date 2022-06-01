@@ -1,21 +1,21 @@
 // Integer Linked List Item
 
-class Node
+template<typename dtype> class Node
 {
     public:
-        int data;
+        dtype data;
         Node* link;
 
         Node();
-        Node(int data_);
+        Node(dtype data_);
 };
 
-Node::Node()
+template<typename dtype> Node<dtype>::Node()
 {
     link = nullptr;
 }
 
-Node::Node(int data_)
+template<typename dtype> Node<dtype>::Node(dtype data_)
 {
     data = data_;
     link = nullptr;

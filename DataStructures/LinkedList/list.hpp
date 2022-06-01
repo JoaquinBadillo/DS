@@ -19,47 +19,48 @@ class ListException : public std::exception {
     }
 };
 
-class List
+
+template <typename dtype> class List
 {
     private:
         // Insert item at the beginning: O(1)
-        void insert(Node& item);
+        void insert(Node<dtype>& item);
 
         // Insert item at a given index: O(n)
-        void insert(Node& item, int i); 
+        void insert(Node<dtype>& item, int i); 
     public:
-        Node* first;
+        Node<dtype>* first;
         int size;
 
         List();
         ~List();
 
         // Access linked list: O(n)
-        int& access(int i);
+        dtype& access(int i);
         // Access linked list: O(n)
-        int& operator[](int i);
+        dtype& operator[](int i);
         // Modify linked list item: O(n)
-        void modify(int data, int i);
+        void modify(dtype data, int i);
         // Create node and insert item at the beginning: O(1)
-        void insert(int data);
+        void insert(dtype data);
         // Create node and insert item at a given index: O(n)
-        void insert(int data, int i); 
+        void insert(dtype data, int i); 
         // Delete item at ith position: O(n)
         void remove(int i);
         // Print list: O(n)
         void print();     
 };
 
-List::List()
+template <typename dtype> List<dtype>::List()
 {
     size = 0;
     first = nullptr;
 }
 
-List::~List()
+template <typename dtype> List<dtype>::~List()
 {
-    Node* currentItem = first;
-    Node* nextItem;
+    Node<dtype>* currentItem = first;
+    Node<dtype>* nextItem;
     while(currentItem != nullptr)
     {
         nextItem = currentItem -> link;
@@ -68,9 +69,9 @@ List::~List()
     }
 }
 
-int& List::access(int i)
+template <typename dtype> dtype& List<dtype>::access(int i)
 {
-    Node* temp = first;
+    Node<dtype>* temp = first;
 
     if (i < size)
     {
@@ -85,14 +86,14 @@ int& List::access(int i)
     throw ListException("Error: Index doesn't exist!"); 
 }
 
-int& List::operator[](int i)
+template <typename dtype> dtype& List<dtype>::operator[](int i)
 {
     return this -> access(i);
 }
 
-void List::modify(int data, int i)
+template <typename dtype> void List<dtype>::modify(dtype data, int i)
 {
-    Node* temp = first;
+    Node<dtype>* temp = first;
 
     if (i >= size)
     {
@@ -107,22 +108,22 @@ void List::modify(int data, int i)
     temp->data = data;
 }
 
-void List::insert(Node& item)
+template <typename dtype> void List<dtype>::insert(Node<dtype>& item)
 {
     item.link = first;
     first = &item;
     size++;
 }
 
-void List::insert(int data)
+template <typename dtype> void List<dtype>::insert(dtype data)
 {
-    Node* nodeptr = new Node(data);
+    Node<dtype>* nodeptr = new Node<dtype>(data);
     this -> insert(*nodeptr);
 }
 
-void List::insert(Node& item, int i)
+template <typename dtype> void List<dtype>::insert(Node<dtype>& item, int i)
 {
-    Node* temp = first;
+    Node<dtype>* temp = first;
     
     if (i > size)
     {
@@ -146,16 +147,16 @@ void List::insert(Node& item, int i)
     size++;
 }
 
-void List::insert(int data, int i)
+template <typename dtype> void List<dtype>::insert(dtype data, int i)
 {
-    Node* nodeptr = new Node(data);
+    Node<dtype>* nodeptr = new Node<dtype>(data);
     this -> insert(*nodeptr, i);
 }
 
-void List::remove(int i)
+template <typename dtype> void List<dtype>::remove(int i)
 {
-    Node* temp = first;
-    Node* next;
+    Node<dtype>* temp = first;
+    Node<dtype>* next;
 
     if (i>=size)
     {
@@ -174,9 +175,9 @@ void List::remove(int i)
     size--;
 }
 
-void List::print()
+template <typename dtype> void List<dtype>::print()
 {
-    Node* temp;
+    Node<dtype>* temp;
 
     if(size >0)
     {
