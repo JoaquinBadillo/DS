@@ -1,7 +1,9 @@
 #include "list.hpp"
+#include "listAlgorithms.hpp"
 
 int main(void)
 {
+    // Test List
     try
     {
         List<int> list;
@@ -48,9 +50,37 @@ int main(void)
         std::cout << "\nAdd element on the 20th index (testing exception):\n";
         list.insert(5, 20);
         list.print();
+    } catch(ListException e) {
+        std::cerr << e.what() << '\n';
     }
-    catch(ListException e)
+
+    std::cout << "\nTest List Algorithms\n";
+    
+    // Test List Algorithms
+    try
     {
+        List<int> list;
+
+        for(int i=1; i<11; i++)
+        {
+            list.insert(i);
+        } 
+
+        std::cout << "Print list recursively: \n";
+        printRecursive(list.first);
+
+        std::cout << "\nPrint list recursively in reverse order: \n";
+        printReverse(list.first);
+        std::cout << "\n";
+
+        std::cout << "\nReverse list (iteratively): \n";
+        reverseList(list);
+        printRecursive(list.first);
+
+        std::cout << "\nReverse list again (recursively): \n";
+        reverseRecursive(list);
+        printRecursive(list.first);
+    } catch(ListException e) {
         std::cerr << e.what() << '\n';
     }
     return 0;

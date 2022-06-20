@@ -1,4 +1,7 @@
-// Integer Linked List
+// Linked List
+#ifndef List_h
+#define List_h
+
 #include <iostream>
 #include "node.hpp"
 
@@ -192,3 +195,5 @@ template <typename dtype> void List<dtype>::print()
         std::cout << "Empty list\n"; 
     }
 }
+
+#endif

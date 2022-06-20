@@ -1,4 +1,4 @@
-// Implementation of List Algorithms
+// Implementation of some List Algorithms (printing and reversing)
 
 #ifndef ListAlgorithms_h
 #define ListAlgorithms_h
@@ -7,7 +7,7 @@
 #include "list.hpp"
 
 // Print a list recursively given its head pointer: Time Complexity O(n)
-void printRecursive(Node* item)
+template <typename T> void printRecursive(Node<T>* item)
 {
     if (item == nullptr)
     {
@@ -20,7 +20,7 @@ void printRecursive(Node* item)
 }
 
 // Print list in reverse order recursively: Time Complexity O(n)
-void printReverse(Node* item)
+template <typename T> void printReverse(Node<T>* item)
 {
     if (item == nullptr)
     {
@@ -33,11 +33,11 @@ void printReverse(Node* item)
 }
 
 // Reverse linked list: Time Complexity O(n)
-void reverseList(List& list)
+template <typename T> void reverseList(List<T>& list)
 {
-    Node* prev = nullptr; // Previous element in the list
-    Node* current = nullptr; // Current element address in the list
-    Node* next = list.first;
+    Node<T>* prev = nullptr; // Previous element in the list
+    Node<T>* current = nullptr; // Current element address in the list
+    Node<T>* next = list.first;
 
     while(next != nullptr)
     {
@@ -51,7 +51,7 @@ void reverseList(List& list)
 }
 
 // Reverse linked list recursively: Time Complexity O(n)
-void reverseRecursive(List& list, Node* item)
+template <typename T> void reverseRecursive(List<T>& list, Node<T>* item)
 {
     if (item -> link == nullptr)
     {
@@ -59,7 +59,7 @@ void reverseRecursive(List& list, Node* item)
         return;
     }
 
-    Node* next = item -> link;
+    Node<T>* next = item -> link;
 
     reverseRecursive(list, next); // Change pointer of next item
 
@@ -68,7 +68,7 @@ void reverseRecursive(List& list, Node* item)
 }
 
 // Reverse linked list recursively: Time Complexity O(n)
-void reverseRecursive(List& list)
+template <typename T> void reverseRecursive(List<T>& list)
 {
     // This function was added to use only the list as a parameter
     reverseRecursive(list, list.first);

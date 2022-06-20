@@ -1,10 +1,9 @@
-#ifndef List_h
-#define List_h
 // Doubly Integer Linked List
 
+#ifndef List_h
+#define List_h
+
 #include <iostream>
-#include <string>
-#include <vector>
 #include "node.hpp"
 
 class ListException : public std::exception {
@@ -23,46 +22,46 @@ class ListException : public std::exception {
     }
 };
 
-class List
+template<typename dtype> class List
 {
     private:
         // Insert item at the beginning: O(1)
-        void insert(Node& item);
+        void insert(Node<dtype>& item);
         // Insert item at a given index: O(n)
-        void insert(Node& item, int i); 
+        void insert(Node<dtype>& item, int i); 
     public:
-        Node* head;
+        Node<dtype>* head;
         int size;
 
         List();
         ~List();
 
         // Access linked list: O(n)
-        int& access(int i);
+        dtype& access(int i);
         // Access linked list: O(n)
-        int& operator[](int i);
+        dtype& operator[](int i);
         // Modify linked list item: O(n)
-        void modify(int data, int i);
+        void modify(dtype data, int i);
         // Create node and insert item at the beginning: O(1)
-        void insert(int data);
+        void insert(dtype data);
         // Create node and insert item at a given index: O(n)
-        void insert(int data, int i); 
+        void insert(dtype data, int i); 
         // Delete item at ith position: O(n)
         void remove(int i);
         // Print list: O(n)
         void print(); 
 };
 
-List::List()
+template<typename dtype> List<dtype>::List()
 {
     size = 0;
     head = nullptr;
 }
 
-List::~List()
+template<typename dtype> List<dtype>::~List()
 {
-    Node* current = head;
-    Node* next;
+    Node<dtype>* current = head;
+    Node<dtype>* next;
 
     while (current != nullptr)
     {
@@ -72,9 +71,9 @@ List::~List()
     }
 }
 
-int& List::access(int i)
+template<typename dtype> dtype& List<dtype>::access(int i)
 {
-    Node* item = head;
+    Node<dtype>* item = head;
 
     if (i < size)
     {
@@ -88,14 +87,14 @@ int& List::access(int i)
     throw ListException("Error: Index doesn't exist!");
 }
 
-int& List::operator[](int i)
+template<typename dtype> dtype& List<dtype>::operator[](int i)
 {
     return this -> access(i);
 }
 
-void List::modify(int data, int i)
+template<typename dtype> void List<dtype>::modify(dtype data, int i)
 {
-    Node* item = head;
+    Node<dtype>* item = head;
 
     if (i >= size)
     {
@@ -110,7 +109,7 @@ void List::modify(int data, int i)
     item -> data = data;    
 }
 
-void List::insert(Node& item)
+template<typename dtype> void List<dtype>::insert(Node<dtype>& item)
 {
     item.next = head;
     if (head != nullptr)
@@ -121,15 +120,15 @@ void List::insert(Node& item)
     size++;
 }
 
-void List::insert(int data)
+template<typename dtype> void List<dtype>::insert(dtype data)
 {
-    Node* itemptr = new Node(data);
+    Node<dtype>* itemptr = new Node<dtype>(data);
     this -> insert(*itemptr);
 }
 
-void List::insert(Node& item, int i)
+template<typename dtype> void List<dtype>::insert(Node<dtype>& item, int i)
 {
-    Node* current = head;
+    Node<dtype>* current = head;
 
     if (i > size)
     {
@@ -155,15 +154,15 @@ void List::insert(Node& item, int i)
     size++;
 }
 
-void List::insert(int data, int i)
+template<typename dtype> void List<dtype>::insert(dtype data, int i)
 {
-    Node* itemptr = new Node(data);
+    Node<dtype>* itemptr = new Node<dtype>(data);
     this -> insert(*itemptr, i);
 }
 
-void List::remove(int i)
+template<typename dtype> void List<dtype>::remove(int i)
 {
-    Node* current = head;
+    Node<dtype>* current = head;
 
     if (i >= size)
     {
@@ -183,7 +182,7 @@ void List::remove(int i)
     size--;
 }
 
-void List::print()
+template<typename dtype> void List<dtype>::print()
 {
     if (size == 0)
     {
@@ -191,7 +190,7 @@ void List::print()
         return;
     }
 
-    Node* current;
+    Node<dtype>* current;
 
     for(current = head; current != nullptr; current = current -> next)
     {

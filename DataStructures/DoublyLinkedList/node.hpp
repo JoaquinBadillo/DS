@@ -1,25 +1,25 @@
+// List Item
 #ifndef Node_h
 #define Node_h
-// Integer List Item
 
-class Node
+template <typename dtype> class Node
 {
     public:
-        int data;
-        Node* prev;
-        Node* next;
+        dtype data;
+        Node<dtype>* prev;
+        Node<dtype>* next;
 
         Node();
-        Node(int data_);
+        Node(dtype data_);
 };
 
-Node::Node()
+template<typename dtype> Node<dtype>::Node()
 {
     prev = nullptr;
     next = nullptr;
 }
 
-Node::Node(int data_)
+template<typename dtype> Node<dtype>::Node(dtype data_)
 {
     data = data_;
     prev = nullptr;

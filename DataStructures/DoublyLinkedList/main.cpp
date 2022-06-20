@@ -4,7 +4,7 @@ int main(void)
 {
     try
     {
-        List list;
+        List<int> list;
 
         std::cout << "Print empty list:\n";
         list.print();
