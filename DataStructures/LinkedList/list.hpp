@@ -3,6 +3,7 @@
 #define List_h
 
 #include <iostream>
+#include <string>
 #include "node.hpp"
 
 
