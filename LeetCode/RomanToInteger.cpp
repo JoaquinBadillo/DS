@@ -23,9 +23,10 @@ class Solution
             int n = s.length();
             int number = 0;
 
+            int current = conversion.find(s[0])->second;
+
             for (int i = 0; i < n - 1; i++)
             {
-                int current = conversion.find(s[i])->second;
                 int next = conversion.find(s[i + 1])->second;
 
                 if (current < next)
@@ -36,7 +37,10 @@ class Solution
                 {
                     number += current;
                 }
+
+                current = next;
             }
+            
             number += conversion.find(s[n - 1])->second;
             return number;
         }
